@@ -12,7 +12,7 @@ blueprint:
         device:
           integration: xiaomi_aqara
           manufacturer: Xiaomi Aqara
-          model: remote.b286acn02
+          model: remote.b286acn01
 
     # --- BUTTON ONE ---------------------------------------------------------------
     button_one_single_press:
