@@ -1,0 +1,130 @@
+blueprint:
+  name: Aqara D1 Wireless Remote Switch (2 Button)
+  description: "Supported actions: single, double and long press."
+  domain: automation
+  source_url: https://community.home-assistant.io/t/deconz-aqara-d1-wireless-remote-switch-2-button-lumi-remote-b286acn02-wxkg07lm/274089
+  # GUI elements
+  input:
+    remote:
+      name: Remote
+      description: Aqara D1 remote to use
+      selector:
+        device:
+          integration: xiaomi_aqara
+          manufacturer: LUMI
+          model: lumi.remote.b286acn02
+
+    # --- BUTTON ONE ---------------------------------------------------------------
+    button_one_single_press:
+      name: Left button - Single press
+      description: Action on single press button
+      default: []
+      selector:
+        action: {}
+
+    button_one_double_press:
+      name: Left button - Double press
+      description: Action on double press button
+      default: []
+      selector:
+        action: {}
+
+    button_one_hold_in:
+      name: Left button - Long in
+      description: Action on long press button
+      default: []
+      selector:
+        action: {}
+
+    # --- BUTTON TWO ---------------------------------------------------------------
+    button_two_single_press:
+      name: Right button - Single press
+      description: Action on single press button
+      default: []
+      selector:
+        action: {}
+
+    button_two_double_press:
+      name: Right button - Double press
+      description: Action on double press button
+      default: []
+      selector:
+        action: {}
+
+    button_two_hold_in:
+      name: Right button - Long in
+      description: Action on long press button
+      default: []
+      selector:
+        action: {}
+
+    # --- BOTH BUTTONS ---------------------------------------------------------------
+    button_both_single_press:
+      name: Both buttons - Single press
+      description: Action on single press (BOTH buttons)
+      default: []
+      selector:
+        action: {}
+
+    button_both_double_press:
+      name: Both buttons - Double press
+      description: Action on double press (BOTH buttons)
+      default: []
+      selector:
+        action: {}
+
+    button_both_hold_in:
+      name: Both buttons - Long in
+      description: Action on long press (BOTH buttons)
+      default: []
+      selector:
+        action: {}
+# End GUI elements
+
+# If press detected before end of action restart script
+mode: restart
+max_exceeded: silent
+
+trigger:
+  - platform: event
+    event_type: deconz_event
+    event_data:
+      device_id: !input "remote"
+action:
+  - variables:
+      event: "{{ trigger.event.data.event }}"
+  - choose:
+      # Automation
+
+      # --- BUTTON ONE ---------------------------------------------------------------
+      - conditions:
+          - "{{ event == 1002 }}"
+        sequence: !input "button_one_single_press"
+      - conditions:
+          - "{{ event == 1004 }}"
+        sequence: !input "button_one_double_press"
+      - conditions:
+          - "{{ event == 1001 }}"
+        sequence: !input "button_one_hold_in"
+
+      # --- BUTTON TWO ---------------------------------------------------------------
+      - conditions:
+          - "{{ event == 2002 }}"
+        sequence: !input "button_two_single_press"
+      - conditions:
+          - "{{ event == 2004 }}"
+        sequence: !input "button_two_double_press"
+      - conditions:
+          - "{{ event == 2001 }}"
+        sequence: !input "button_two_hold_in"
+
+      # --- BOTH BUTTONS ---------------------------------------------------------------
+      - conditions:
+          - "{{ event == 3002 }}"
+        sequence: !input "button_both_single_press"
+      - conditions:
+          - "{{ event == 3004 }}"
+        sequence: !input "button_both_double_press"
+      - conditions:
+          - "{{ event == 3001 }}"
+        sequence: !input "button_both_hold_in"
