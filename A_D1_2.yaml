@@ -11,8 +11,8 @@ blueprint:
       selector:
         device:
           integration: xiaomi_aqara
-          manufacturer: LUMI
-          model: lumi.remote.b286acn02
+          manufacturer: Xiaomi Aqara
+          model: remote.b286acn02
 
     # --- BUTTON ONE ---------------------------------------------------------------
     button_one_single_press:
