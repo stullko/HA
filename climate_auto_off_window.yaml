@@ -10,8 +10,8 @@ blueprint:
       description: The window sensor that controls the climate entity.
       selector:
         entity:
-          domain: sensor_magnet.aq2
-          device_class: window
+          domain: binary_sensor
+          device_class: opening
     minimum_open_time:
       name: Miniumum time the window is open
       description: Time in seconds to wait until the automation is triggered
