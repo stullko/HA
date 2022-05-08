@@ -14,7 +14,7 @@ blueprint:
       selector:
         entity:
           domain: binary_sensor
-          device_class: opening
+          device_class: door
           multiple: false
     minimum_open_time:
       name: Miniumum open time
